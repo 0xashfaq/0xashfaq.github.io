@@ -27,55 +27,80 @@ layout: default
 <article class="post">
   {%- include meta-strip.html crumb=cat_label suffix=page.title -%}
 
-  <div class="post-back">
-    <a href="{{ '/blog/' | relative_url }}">← Back to writing</a>
-  </div>
+  <div class="post-shell">
 
-  <header class="post-header">
-    <div class="post-meta-line">
-      {% include category-chip.html post=page style='line' %}
-      <span class="dot">·</span>
-      <span class="date">{{ page.date | date: '%Y · %m · %d' }}</span>
-      {% if page.read_time %}
-        <span class="dot">·</span>
-        <span class="read">{{ page.read_time }}</span>
-      {% endif %}
-      {% if page.number %}
-        <span class="dot">·</span>
-        <span class="num">№ {{ page.number }}</span>
-      {% endif %}
-    </div>
+    {%- comment -%} Left: sticky TOC sidebar.
+       The .toc-list is empty in source — main.js scans the body's
+       h2 / h3 elements at runtime and populates anchors here.
+    {%- endcomment -%}
+    <aside class="post-toc" aria-label="Table of contents">
+      <a class="toc-cat" href="{{ '/blog/#cat-' | append: cat_key | relative_url }}">{{ cat_label | upcase }}</a>
+      <h2 class="toc-title">{{ page.title }}</h2>
+      <nav class="toc-list" data-toc></nav>
+      <a class="toc-back" href="{{ '/blog/' | relative_url }}">← All writeups</a>
+    </aside>
 
-    <h1 class="post-title">{{ page.title }}</h1>
+    <div class="post-main">
 
-    {% if page.lede %}
-      <p class="post-lede">{{ page.lede }}</p>
-    {% endif %}
+      <nav class="post-breadcrumb" aria-label="Breadcrumb">
+        <a href="{{ '/' | relative_url }}">Home</a>
+        <span class="sep">/</span>
+        <a href="{{ '/blog/' | relative_url }}">Writing</a>
+        <span class="sep">/</span>
+        <a href="{{ '/blog/#cat-' | append: cat_key | relative_url }}">{{ cat_label }}</a>
+        <span class="sep">/</span>
+        <span class="current">{{ page.title | truncate: 48 }}</span>
+      </nav>
 
-    {% if page.tags %}
-      <div class="post-tags">
-        {% for t in page.tags %}<span class="chip">{{ t }}</span>{% endfor %}
+      <header class="post-header">
+        <div class="post-meta-line">
+          <span class="date">{{ page.date | date: '%b %d, %Y' }}</span>
+          {% if page.difficulty %}
+            <span class="dot">·</span>
+            <span class="difficulty">{{ page.difficulty }}</span>
+          {% endif %}
+          {% if page.read_time %}
+            <span class="dot">·</span>
+            <span class="read">{{ page.read_time }}</span>
+          {% endif %}
+          {% if page.number %}
+            <span class="dot">·</span>
+            <span class="num">№ {{ page.number }}</span>
+          {% endif %}
+        </div>
+
+        <h1 class="post-title">{{ page.title }}</h1>
+
+        {% if page.lede %}
+          <p class="post-lede">{{ page.lede }}</p>
+        {% endif %}
+
+        {% if page.tags %}
+          <div class="post-tags">
+            {% for t in page.tags %}<span class="chip">{{ t }}</span>{% endfor %}
+          </div>
+        {% endif %}
+      </header>
+
+      <div class="post-body prose">
+        {{ content }}
       </div>
-    {% endif %}
-  </header>
 
-  <div class="post-body prose">
-    {{ content }}
+      <nav class="post-nav">
+        {% if prev_post %}
+          <a class="post-nav-link prev" href="{{ prev_post.url | relative_url }}">
+            <span class="lab">← Previous</span>
+            <span class="ttl">{{ prev_post.title }}</span>
+          </a>
+        {% else %}<span></span>{% endif %}
+
+        {% if next_post %}
+          <a class="post-nav-link next" href="{{ next_post.url | relative_url }}">
+            <span class="lab">Next →</span>
+            <span class="ttl">{{ next_post.title }}</span>
+          </a>
+        {% else %}<span></span>{% endif %}
+      </nav>
+    </div>
   </div>
-
-  <nav class="post-nav">
-    {% if prev_post %}
-      <a class="post-nav-link prev" href="{{ prev_post.url | relative_url }}">
-        <span class="lab">← Previous</span>
-        <span class="ttl">{{ prev_post.title }}</span>
-      </a>
-    {% else %}<span></span>{% endif %}
-
-    {% if next_post %}
-      <a class="post-nav-link next" href="{{ next_post.url | relative_url }}">
-        <span class="lab">Next →</span>
-        <span class="ttl">{{ next_post.title }}</span>
-      </a>
-    {% else %}<span></span>{% endif %}
-  </nav>
 </article>
