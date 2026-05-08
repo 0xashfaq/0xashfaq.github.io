@@ -1474,50 +1474,131 @@ img     { max-width: 100%; display: block; }
 }
 
 /* ---------- 22. Post / project page layout ----------
-   Single tight reading column — all content (back-link, header,
-   meta line, title, lede, tag chips, body, prev/next) shares the
-   SAME left edge, centered within main. No sidebar, no offset
-   body, no full-bleed header — the whole article reads as one
-   cohesive ~820px column. Style follows modern dev-blog
-   conventions (Lee Robinson, Josh Comeau, vercel/blog).
+   Two-column article shell with a sticky TOC sidebar on the left
+   and a wide reading column on the right. Modeled after modern
+   dev-blog reads (with auto-generated TOC + scrollspy).
    ---------------------------------------------------- */
 .post,
 .project {
   padding: var(--gutter);
-  max-width: 820px;
+  max-width: 1200px;
   margin-inline: auto;
   display: flex; flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 
-/* Subtle "back to index" link — sits between the breadcrumb strip
-   and the article header. */
-.post-back {
-  margin-top: 4px;
+.post-shell {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 56px;
+  align-items: start;
 }
-.post-back a {
-  font-family: var(--mono);
-  font-weight: 600;
-  font-size: 11.5px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+
+/* ---- Left: sticky TOC sidebar ---- */
+.post-toc {
+  position: sticky;
+  top: 24px;
+  display: flex; flex-direction: column;
+  gap: 14px;
+  font-family: var(--sans);
+  /* No card chrome — minimal sidebar */
+  padding: 4px 0 0;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+}
+.post-toc::-webkit-scrollbar { width: 4px; }
+.post-toc::-webkit-scrollbar-thumb { background: var(--rule-2); border-radius: 2px; }
+
+.toc-cat {
+  font-family: var(--mono); font-weight: 700;
+  font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--acc);
+  transition: opacity 0.15s;
+}
+.toc-cat:hover { opacity: 0.7; }
+
+.toc-title {
+  font-family: var(--display); font-weight: 700;
+  font-size: 18px; line-height: 1.18;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  margin: 0 0 6px;
+  text-transform: none;
+}
+
+.toc-list {
+  display: flex; flex-direction: column;
+  gap: 2px;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule);
+}
+.toc-list:empty { display: none; }
+.toc-list a {
+  font-family: var(--serif);
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--ink-3);
+  padding: 5px 0 5px 12px;
+  margin-left: -2px;
+  border-left: 2px solid transparent;
+  transition: color 0.15s, border-left-color 0.15s, background 0.15s;
+}
+.toc-list a:hover { color: var(--ink); }
+.toc-list a.is-active {
+  color: var(--acc);
+  border-left-color: var(--acc);
+}
+.toc-list a.toc-h3 {
+  padding-left: 26px;
+  font-size: 12.5px;
+  color: var(--ink-4);
+}
+.toc-list a.toc-h3.is-active { color: var(--acc); }
+
+.toc-back {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono); font-weight: 600;
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--ink-3);
   transition: color 0.15s, transform 0.15s;
-  display: inline-block;
+  align-self: flex-start;
 }
-.post-back a:hover { color: var(--acc); transform: translateX(-2px); }
+.toc-back:hover { color: var(--acc); transform: translateX(-2px); }
+
+/* ---- Right: main reading column ---- */
+.post-main {
+  min-width: 0;       /* prevent grid blow-out from long code blocks */
+  display: flex; flex-direction: column;
+  gap: 20px;
+}
+
+.post-breadcrumb {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  font-family: var(--mono); font-weight: 600;
+  font-size: 11px; color: var(--ink-3);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin: 4px 0 4px;
+}
+.post-breadcrumb a {
+  color: var(--ink-3);
+  transition: color 0.15s;
+}
+.post-breadcrumb a:hover { color: var(--acc); }
+.post-breadcrumb .sep     { color: var(--ink-4); }
+.post-breadcrumb .current { color: var(--ink-2); }
 
 .post-header {
-  padding: 8px 0 28px;
+  padding: 4px 0 28px;
   border-bottom: 1px solid var(--rule);
-  margin-bottom: 14px;
+  margin-bottom: 8px;
 }
 
-/* Compact meta line — category pill prominent, then date · read · № */
 .post-meta-line {
   display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
   font-family: var(--mono); font-weight: 600;
-  font-size: 11.5px; color: var(--ink-3);
+  font-size: 12px; color: var(--ink-3);
   letter-spacing: 0.06em;
   margin-bottom: 22px;
 }
@@ -1528,43 +1609,71 @@ img     { max-width: 100%; display: block; }
 .post-meta-line .read,
 .post-meta-line .role  { color: var(--ink-2); }
 
+/* Difficulty badge — small bordered red pill (HARD / MEDIUM / EASY) */
+.post-meta-line .difficulty {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px solid var(--acc);
+  border-radius: 3px;
+  color: var(--acc);
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 .post-title {
-  font-family: var(--display); font-weight: 800;
-  font-size: clamp(38px, 5.6vw, 76px);
-  line-height: 0.98;
-  letter-spacing: -0.035em;
-  margin: 4px 0 0;
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(36px, 4.4vw, 56px);
+  line-height: 1.06;
+  letter-spacing: -0.018em;
+  margin: 6px 0 0;
   text-wrap: balance;
   color: var(--ink);
+  text-transform: none;
 }
+
 .post-lede {
   margin: 22px 0 0;
-  font-family: var(--serif); font-style: italic;
-  font-size: 19px; line-height: 1.5;
+  font-family: var(--serif);
+  font-size: 18px; line-height: 1.55;
   color: var(--ink-2);
   text-wrap: pretty;
 }
+.post-lede em { color: var(--acc); font-style: italic; }
+.post-lede strong { color: var(--ink); font-weight: 600; }
 
-/* Tag chips below the lede — the "what's this about" surface area */
 .post-tags {
   display: flex; flex-wrap: wrap; gap: 6px;
   margin-top: 26px;
 }
+.post-tags .chip {
+  font-size: 11px;
+  padding: 4px 10px;
+}
+.post-tags .chip::before {
+  content: "#";
+  color: var(--acc);
+  margin-right: 2px;
+  font-weight: 700;
+}
 
-/* Body fills its container; the .prose 68ch cap keeps line length
-   readable even though the parent column is 820px. */
+/* Body — give it room to breathe inside the wider main column. */
 .post-body {
   padding: 8px 0 12px;
 }
+.post-body.prose {
+  max-width: 75ch;     /* wider than the default 68ch — fits code blocks */
+}
 
-/* Anchor-friendly headings — clicking an in-page link doesn't tuck
-   the heading under the sticky meta strip. Hovering an h2 reveals
-   a subtle # marker on the right. */
-.post-body.prose h2 {
+/* Anchor-friendly headings */
+.post-body.prose h2,
+.post-body.prose h3 {
   scroll-margin-top: 40px;
   position: relative;
 }
-.post-body.prose h2::after {
+.post-body.prose h2::after,
+.post-body.prose h3::after {
   content: " #";
   color: var(--acc);
   opacity: 0;
@@ -1573,7 +1682,32 @@ img     { max-width: 100%; display: block; }
   font-size: 0.65em;
   margin-left: 0.4em;
 }
-.post-body.prose h2:hover::after { opacity: 0.6; }
+.post-body.prose h2:hover::after,
+.post-body.prose h3:hover::after { opacity: 0.6; }
+
+/* Responsive — collapse the TOC sidebar on narrow screens */
+@media (max-width: 1024px) {
+  .post,
+  .project { max-width: 820px; }
+  .post-shell {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .post-toc {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    padding: 14px 16px;
+    background: var(--bg-2);
+    border: var(--card-border);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+  }
+  .toc-back { display: none; }
+}
+@media (max-width: 720px) {
+  .post-toc { display: none; }   /* on phones drop the TOC entirely */
+}
 
 .post-nav {
   display: grid; grid-template-columns: 1fr 1fr;
