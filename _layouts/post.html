@@ -10,7 +10,7 @@ layout: default
   {%- assign cat_label = cat_key | replace: '-', ' ' -%}
 {%- endif -%}
 
-{%- comment -%} prev/next walks the chronologically sorted blog list {%- endcomment -%}
+{%- comment -%} prev / next walks the chronologically sorted blog list {%- endcomment -%}
 {%- assign sorted = site.blogs | sort: 'date' -%}
 {%- assign prev_post = nil -%}
 {%- assign next_post = nil -%}
@@ -27,24 +27,35 @@ layout: default
 <article class="post">
   {%- include meta-strip.html crumb=cat_label suffix=page.title -%}
 
+  <div class="post-back">
+    <a href="{{ '/blog/' | relative_url }}">← Back to writing</a>
+  </div>
+
   <header class="post-header">
     <div class="post-meta-line">
-      {% if page.number %}<span class="num">№ {{ page.number }}</span>{% endif %}
-      <span class="date">{{ page.date | date: '%Y · %m · %d' }}</span>
-      {% if page.read_time %}<span class="read">{{ page.read_time }}</span>{% endif %}
-
       {% include category-chip.html post=page style='line' %}
-
-      {% if page.tags %}
-        {% for t in page.tags %}<span class="tag">{{ t }}</span>{% endfor %}
+      <span class="dot">·</span>
+      <span class="date">{{ page.date | date: '%Y · %m · %d' }}</span>
+      {% if page.read_time %}
+        <span class="dot">·</span>
+        <span class="read">{{ page.read_time }}</span>
+      {% endif %}
+      {% if page.number %}
+        <span class="dot">·</span>
+        <span class="num">№ {{ page.number }}</span>
       {% endif %}
     </div>
 
-    <div class="eyebrow">// LONG-FORM WRITEUP</div>
     <h1 class="post-title">{{ page.title }}</h1>
 
     {% if page.lede %}
       <p class="post-lede">{{ page.lede }}</p>
+    {% endif %}
+
+    {% if page.tags %}
+      <div class="post-tags">
+        {% for t in page.tags %}<span class="chip">{{ t }}</span>{% endfor %}
+      </div>
     {% endif %}
   </header>
 

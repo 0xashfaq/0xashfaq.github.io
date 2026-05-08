@@ -4,18 +4,32 @@ layout: default
 <article class="project">
   {%- include meta-strip.html crumb='Projects' suffix=page.title -%}
 
+  <div class="post-back">
+    <a href="{{ '/projects/' | relative_url }}">← Back to projects</a>
+  </div>
+
   <header class="post-header">
     <div class="post-meta-line">
-      {% if page.year %}<span class="num">{{ page.year }}</span>{% endif %}
-      {% if page.role %}<span class="date">{{ page.role }}</span>{% endif %}
-      {% if page.stack %}
-        {% for s in page.stack %}<span class="tag">{{ s }}</span>{% endfor %}
+      {% if page.kind %}<span class="kind">{{ page.kind }}</span>{% endif %}
+      {% if page.year %}
+        {% if page.kind %}<span class="dot">·</span>{% endif %}
+        <span class="date">{{ page.year }}</span>
+      {% endif %}
+      {% if page.role %}
+        <span class="dot">·</span>
+        <span class="role">{{ page.role }}</span>
       {% endif %}
     </div>
 
-    <div class="eyebrow">// CASE STUDY</div>
     <h1 class="post-title">{{ page.title }}</h1>
+
     {% if page.lede %}<p class="post-lede">{{ page.lede }}</p>{% endif %}
+
+    {% if page.stack %}
+      <div class="post-tags">
+        {% for s in page.stack %}<span class="chip">{{ s }}</span>{% endfor %}
+      </div>
+    {% endif %}
   </header>
 
   <div class="post-body prose">
