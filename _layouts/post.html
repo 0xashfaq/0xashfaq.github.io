@@ -1,0 +1,70 @@
+---
+layout: default
+---
+{%- assign parts = page.path | split: '/' -%}
+{%- assign cat_key = parts[1] -%}
+{%- assign cat = site.data.categories[cat_key] -%}
+{%- if cat and cat.label -%}
+  {%- assign cat_label = cat.label -%}
+{%- else -%}
+  {%- assign cat_label = cat_key | replace: '-', ' ' -%}
+{%- endif -%}
+
+{%- comment -%} prev/next walks the chronologically sorted blog list {%- endcomment -%}
+{%- assign sorted = site.blogs | sort: 'date' -%}
+{%- assign prev_post = nil -%}
+{%- assign next_post = nil -%}
+{%- for b in sorted -%}
+  {%- if b.url == page.url -%}
+    {%- assign idx = forloop.index0 -%}
+    {%- assign prev_idx = idx | minus: 1 -%}
+    {%- assign next_idx = idx | plus: 1 -%}
+    {%- if idx > 0 -%}{%- assign prev_post = sorted[prev_idx] -%}{%- endif -%}
+    {%- if next_idx < sorted.size -%}{%- assign next_post = sorted[next_idx] -%}{%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+
+<article class="post">
+  {%- include meta-strip.html crumb=cat_label suffix=page.title -%}
+
+  <header class="post-header">
+    <div class="post-meta-line">
+      {% if page.number %}<span class="num">№ {{ page.number }}</span>{% endif %}
+      <span class="date">{{ page.date | date: '%Y · %m · %d' }}</span>
+      {% if page.read_time %}<span class="read">{{ page.read_time }}</span>{% endif %}
+
+      {% include category-chip.html post=page style='line' %}
+
+      {% if page.tags %}
+        {% for t in page.tags %}<span class="tag">{{ t }}</span>{% endfor %}
+      {% endif %}
+    </div>
+
+    <div class="eyebrow">// LONG-FORM WRITEUP</div>
+    <h1 class="post-title">{{ page.title }}</h1>
+
+    {% if page.lede %}
+      <p class="post-lede">{{ page.lede }}</p>
+    {% endif %}
+  </header>
+
+  <div class="post-body prose">
+    {{ content }}
+  </div>
+
+  <nav class="post-nav">
+    {% if prev_post %}
+      <a class="post-nav-link prev" href="{{ prev_post.url | relative_url }}">
+        <span class="lab">← Previous</span>
+        <span class="ttl">{{ prev_post.title }}</span>
+      </a>
+    {% else %}<span></span>{% endif %}
+
+    {% if next_post %}
+      <a class="post-nav-link next" href="{{ next_post.url | relative_url }}">
+        <span class="lab">Next →</span>
+        <span class="ttl">{{ next_post.title }}</span>
+      </a>
+    {% else %}<span></span>{% endif %}
+  </nav>
+</article>

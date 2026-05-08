@@ -1,0 +1,48 @@
+# ============================================================
+#  Blog category metadata
+#
+#  - The folder name under _blogs/ is the category key.
+#  - Adding a new category folder is enough; this file is OPTIONAL.
+#    If a folder is missing here, the site auto-derives a label by
+#    title-casing the folder name (e.g. "binary-exploitation" →
+#    "Binary Exploitation").
+#  - Override here when you want a custom label, short tag, or
+#    description shown on the blog index, post header, and home page.
+#
+#  Fields:
+#    label       — full display name (used in headings, post header)
+#    short       — short pill label (used in post-card chips)
+#    description — one-liner shown on the blog index group header
+#    accent      — true to render the chip in the red accent style
+# ============================================================
+
+web-exploitation:
+  label: "Web Exploitation"
+  short: "Web"
+  description: "CVE disclosures and writeups against modern web targets — XSS, SQLi, SSRF, SSTI, broken auth."
+  accent: true
+
+mobile-pentest:
+  label: "Mobile Pentest"
+  short: "Mobile"
+  description: "iOS &amp; Android pentesting tradecraft — Frida hooking, jailbreak/root-detection bypass, SSL pinning, runtime tampering."
+  accent: true
+
+# ------------------------------------------------------------
+#  Add categories below as you start writing in new folders:
+# ------------------------------------------------------------
+# mobile-security:
+#   label: "Mobile Security"
+#   short: "Mobile"
+#   description: "Android pentesting, Frida tradecraft, MobSF workflows."
+#
+# red-team-ops:
+#   label: "Red Team Ops"
+#   short: "RedOps"
+#   description: "APT simulations, custom payloads, EDR / AV evasion."
+#   accent: true
+#
+# embedded-security:
+#   label: "Embedded &amp; IoT"
+#   short: "IoT"
+#   description: "Firmware, access-control hardware, biometric data."

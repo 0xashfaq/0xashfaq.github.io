@@ -1,0 +1,40 @@
+{%- comment -%}
+  Renders a category chip for a blog post.
+  - Category key is the immediate parent folder under _blogs/.
+  - Friendly label is looked up in _data/categories.yml; falls back
+    to the folder name with hyphens turned into spaces.
+
+  Args:
+    post           — the blog post object
+    style          — "card" (default) emits the small inline chip
+                     used inside post-card.html, "line" emits the
+                     uppercased monospace variant for the post layout.
+{%- endcomment -%}
+
+{%- assign p = include.post -%}
+{%- assign style = include.style | default: 'card' -%}
+{%- assign parts = p.path | split: '/' -%}
+{%- assign cat_key = parts[1] -%}
+{%- assign cat = site.data.categories[cat_key] -%}
+
+{%- if cat and cat.label -%}
+  {%- assign cat_label = cat.label -%}
+{%- else -%}
+  {%- assign cat_label = cat_key | replace: '-', ' ' -%}
+{%- endif -%}
+
+{%- if cat and cat.short -%}
+  {%- assign chip_label = cat.short -%}
+{%- else -%}
+  {%- assign chip_label = cat_label -%}
+{%- endif -%}
+
+{%- assign accent = false -%}
+{%- if cat and cat.accent -%}{%- assign accent = true -%}{%- endif -%}
+
+{%- if style == 'line' -%}
+  <a href="{{ '/blog/' | append: cat_key | append: '/' | relative_url }}"
+     class="cat-pill {% if accent %}accent{% endif %}">{{ cat_label }}</a>
+{%- else -%}
+  <span class="tag {% if accent %}hot{% endif %}">{{ chip_label | downcase }}</span>
+{%- endif -%}

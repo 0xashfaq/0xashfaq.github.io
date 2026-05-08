@@ -1,0 +1,137 @@
+---
+layout: default
+nav: blog
+title: Writing
+permalink: /blog/
+---
+
+{% assign blogs_sorted = site.blogs | sort: 'date' | reverse %}
+
+{%- comment -%}
+  Build the list of category keys present in _blogs/, in the order
+  they first appear in the chronologically-sorted post list.
+{%- endcomment -%}
+{% assign cat_keys = '' | split: '' %}
+{% for p in blogs_sorted %}
+  {% assign parts = p.path | split: '/' %}
+  {% assign k = parts[1] %}
+  {% unless cat_keys contains k %}
+    {% assign cat_keys = cat_keys | push: k %}
+  {% endunless %}
+{% endfor %}
+
+<section class="page">
+
+  {% include meta-strip.html crumb='Writing' suffix='Index' %}
+
+  <!-- ========== HERO ========== -->
+  <div class="page-hero">
+    <div class="col-text">
+      <div class="pill-row">
+        <span class="chip dark">Long-form</span>
+        <span class="chip">{{ blogs_sorted | size }} entries</span>
+        <span class="chip green">{{ cat_keys.size }} categor{% if cat_keys.size == 1 %}y{% else %}ies{% endif %}</span>
+      </div>
+      <p class="eyebrow">// 02 — Recent writing</p>
+      <h1>Field <span class="italic">notes</span> &amp; writeups.</h1>
+      <p class="lede">
+        CVE disclosures, research notes, and engagement-grade writeups —
+        published when they're cleared for release.
+      </p>
+    </div>
+
+    <aside class="poster">
+      <div class="poster-inner">
+        <div class="head">
+          <span class="chip dark">Archive</span>
+          <span class="mark">№</span>
+        </div>
+        <div class="ini">{{ blogs_sorted | size }}</div>
+        <div class="name-block">
+          <div class="alias">Writing index</div>
+          <h2>Receipts in.</h2>
+          <p class="role">Tools, repros, blast radius.</p>
+        </div>
+        <div class="roles">
+          {% for k in cat_keys limit:3 %}
+            {% assign meta = site.data.categories[k] %}
+            {% assign label = meta.short | default: k %}
+            <div class="r">
+              <div class="k">Tag</div>
+              <div class="v">{{ label }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ========== FILTER STRIP ========== -->
+  <nav class="tag-strip" data-tag-strip aria-label="Filter writeups by category">
+    <a href="#" data-tag="all" class="active">all · {{ blogs_sorted | size }}</a>
+    {% for k in cat_keys %}
+      {% assign meta = site.data.categories[k] %}
+      {% if meta and meta.label %}
+        {% assign label = meta.label %}
+      {% else %}
+        {% assign label = k | replace: '-', ' ' %}
+      {% endif %}
+      {% assign count = 0 %}
+      {% for p in blogs_sorted %}
+        {% assign parts = p.path | split: '/' %}
+        {% if parts[1] == k %}{% assign count = count | plus: 1 %}{% endif %}
+      {% endfor %}
+      <a href="#cat-{{ k }}" data-tag="{{ k }}">{{ label }} · {{ count }}</a>
+    {% endfor %}
+  </nav>
+
+  <!-- ========== GROUPED LIST ========== -->
+  {% for k in cat_keys %}
+    {% assign meta = site.data.categories[k] %}
+    {% if meta and meta.label %}
+      {% assign label = meta.label %}
+    {% else %}
+      {% assign label = k | replace: '-', ' ' %}
+    {% endif %}
+    {% assign descr = meta.description %}
+
+    <section class="cat-section" id="cat-{{ k }}">
+      <header class="cat-header">
+        <h2 class="cat-title">
+          <span class="key">// {{ k }}</span>
+          <span class="lbl">{{ label }}</span>
+        </h2>
+        {% if descr %}<p class="cat-descr">{{ descr }}</p>{% endif %}
+      </header>
+
+      <div class="blog-list" role="list">
+        {% for p in blogs_sorted %}
+          {% assign parts = p.path | split: '/' %}
+          {% if parts[1] != k %}{% continue %}{% endif %}
+          {% assign tag_str = p.tags | join: ' ' %}
+          <a href="{{ p.url | relative_url }}" class="blog-row" data-tags="{{ k }} {{ tag_str }}" role="listitem">
+            <div class="b-date">
+              {% if p.number %}<span class="b-num">№ {{ p.number }}</span>{% endif %}
+              {{ p.date | date: '%Y · %m · %d' }}
+            </div>
+            <div class="b-body">
+              <div class="b-title">{{ p.title }}</div>
+              <div class="b-meta">
+                {% if p.read_time %}<span>{{ p.read_time }}</span>{% endif %}
+                {% for t in p.tags %}<span class="tag">{{ t }}</span>{% endfor %}
+              </div>
+            </div>
+            <div class="b-arr">Read →</div>
+          </a>
+        {% endfor %}
+      </div>
+    </section>
+  {% endfor %}
+
+  {% if blogs_sorted.size == 0 %}
+    <p style="font-family: var(--mono); color: var(--ink-3); padding: 24px;">
+      No writeups yet. Drop a markdown file under <code>_blogs/&lt;category&gt;/</code> to publish your first one.
+    </p>
+  {% endif %}
+
+</section>

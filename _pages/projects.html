@@ -1,0 +1,98 @@
+---
+layout: default
+nav: projects
+title: Projects
+permalink: /projects/
+---
+
+{% assign projects = site.projects | sort: 'order' %}
+
+<section class="page">
+
+  {% include meta-strip.html crumb='Projects' suffix='Selected work' %}
+
+  <!-- ========== HERO ========== -->
+  <div class="page-hero">
+    <div class="col-text">
+      <div class="pill-row">
+        <span class="chip dark">Selected work</span>
+        <span class="chip">{{ projects | size }} entries</span>
+      </div>
+      <p class="eyebrow">// 03 — Proof of work</p>
+      <h1>Tools, <span class="italic-serif">tradecraft</span> &amp; case studies.</h1>
+      <p class="lede">
+        Public CVEs and academic publications — the work that's cleared for
+        public release. Engagement-bound work lives in the CV, under
+        <em>references on request</em>.
+      </p>
+    </div>
+
+    <aside class="poster">
+      <div class="poster-inner">
+        <div class="head">
+          <span class="chip dark">Index</span>
+          <span class="mark">{{ projects | size }}</span>
+        </div>
+        <div class="ini">{{ projects | size }}</div>
+        <div class="name-block">
+          <div class="alias">Public record</div>
+          <h2>Receipts.</h2>
+          <p class="role">CVE database · academic venues · award citations.</p>
+        </div>
+        <div class="roles">
+          <div class="r"><div class="k">CVE</div>     <div class="v">Mitre · NVD</div></div>
+          <div class="r"><div class="k">Papers</div>  <div class="v">WINET · ICSCA</div></div>
+          <div class="r"><div class="k">Awards</div>  <div class="v">Best Paper</div></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ========== WORK GRID ========== -->
+  <header class="sec-mark">
+    <p class="num">01 / Selected work</p>
+    <div>
+      <h2>Projects and research with proof-of-work energy.</h2>
+      <p class="blurb">Click any tile for the full case study.</p>
+    </div>
+  </header>
+
+  {% if projects.size == 0 %}
+    <p style="font-family: var(--mono); color: var(--ink-3); padding: 24px;">
+      No projects published yet. Drop a markdown file in <code>_projects/</code> to get started.
+    </p>
+  {% else %}
+    <div class="work-grid">
+      {% for p in projects %}
+        {% assign idx = forloop.index | prepend: '0' | slice: -2, 2 %}
+        <a href="{{ p.url | relative_url }}" class="work-tile">
+          <div class="head">
+            <span class="watermark">{{ idx }}</span>
+            <span class="chip dark">{{ p.kind }}</span>
+          </div>
+          <h3>{{ p.title }}</h3>
+          <p class="blurb">{{ p.lede | default: p.excerpt | strip_html | truncate: 200 }}</p>
+          {% if p.stack %}
+            <div class="stack">
+              {% for s in p.stack %}<span class="chip">{{ s }}</span>{% endfor %}
+            </div>
+          {% endif %}
+          <div class="foot">
+            <span class="lab">{{ p.year | default: 'Case study' }} · view →</span>
+            <span class="arr"><svg viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <!-- ========== CTA ========== -->
+  <div class="big-cta">
+    <div>
+      <p class="lab">// Engagement-bound work</p>
+      <h2>References available on request.</h2>
+    </div>
+    <a href="{{ '/contact/' | relative_url }}" class="btn-primary">Request →</a>
+  </div>
+
+</section>

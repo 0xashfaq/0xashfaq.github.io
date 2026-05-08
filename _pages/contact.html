@@ -1,0 +1,192 @@
+---
+layout: default
+nav: contact
+title: Contact
+permalink: /contact/
+---
+
+<section class="page">
+
+  {% include meta-strip.html crumb='Contact' suffix='Channels' %}
+
+  <!-- ========== HERO ========== -->
+  <div class="page-hero">
+    <div class="col-text">
+      <div class="pill-row">
+        <span class="chip dark">Open inbox</span>
+        <span class="chip">Replies in ~48h</span>
+      </div>
+      <p class="eyebrow">// 05 — Reach out</p>
+      <h1>Open <span class="italic-serif">channels</span></h1>
+      <p class="lede">
+        Email is the best inbound channel — usually answered within 48 hours.
+        LinkedIn for professional context, intros, and ongoing
+        authorized red-team work.
+      </p>
+    </div>
+
+    <aside class="poster">
+      <div class="poster-inner">
+        <div class="head">
+          <span class="chip dark">Get in touch</span>
+          <span class="mark">{{ site.author.initials }}</span>
+        </div>
+        <div class="ini">{% include avatar.html %}</div>
+        <div class="name-block">
+          <div class="alias">{{ site.author.location }}</div>
+          <h2>Let's talk.</h2>
+          <p class="role">Engagements, advisory, and CVE coordination.</p>
+        </div>
+        <div class="roles">
+          <div class="r"><div class="k">Email</div>    <div class="v">Best</div></div>
+          <div class="r"><div class="k">LinkedIn</div> <div class="v">Pro</div></div>
+          <div class="r"><div class="k">Reply</div>    <div class="v">~48h</div></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ========== CHANNELS ========== -->
+  <header class="sec-mark">
+    <p class="num">01 / Direct channels</p>
+    <div>
+      <h2>Pick the line that matches the urgency.</h2>
+    </div>
+  </header>
+
+  <div class="contact-grid">
+    <div class="contact-card">
+      <h3>// Direct</h3>
+      <ul class="contact-list">
+        <li>
+          <span class="k">Email</span>
+          <a class="v" href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>
+        </li>
+        <li>
+          <span class="k">LinkedIn</span>
+          <a class="v" href="https://linkedin.com/in/ashfaqul-haq" rel="noopener">/ashfaqul-haq</a>
+        </li>
+        <li>
+          <span class="k">Location</span>
+          <span class="v">{{ site.author.location }}</span>
+        </li>
+        <li>
+          <span class="k">Working hours</span>
+          <span class="v">Sun–Thu · GMT+6</span>
+        </li>
+        <li>
+          <span class="k">Languages</span>
+          <span class="v">Bangla · English · Hindi</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="contact-card dark">
+      <h3>// At a glance</h3>
+      <ul class="contact-list">
+        <li>
+          <span class="k">Role</span>
+          <span class="v">{{ site.author.role }}</span>
+        </li>
+        <li>
+          <span class="k">Employer</span>
+          <span class="v">Shorborno · GP MSSP</span>
+        </li>
+        <li>
+          <span class="k">Experience</span>
+          <span class="v">{{ site.author.exp }}</span>
+        </li>
+        <li>
+          <span class="k">Focus</span>
+          <span class="v">{{ site.author.focus }}</span>
+        </li>
+        <li>
+          <span class="k">Top certs</span>
+          <span class="v">{{ site.author.certs | join: ' · ' }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ========== ENGAGEMENT FORMATS ========== -->
+  <header class="sec-mark">
+    <p class="num">02 / Engagement formats</p>
+    <div>
+      <h2>Four ways the work gets <span class="italic-serif">structured</span>.</h2>
+      <p class="blurb">Pick the format that matches the shape of the problem — the technical surface area is the same either way.</p>
+    </div>
+  </header>
+
+  <div class="work-grid">
+    <div class="work-tile" style="cursor:default;">
+      <div class="head"><span class="watermark">01</span><span class="chip dark">Project</span></div>
+      <h3>Project pentest</h3>
+      <p class="blurb">Fixed-scope engagement against a defined target — web, Android, network, Active Directory, embedded systems. Kick-off → testing → debrief → final report.</p>
+    </div>
+    <div class="work-tile" style="cursor:default;">
+      <div class="head"><span class="watermark">02</span><span class="chip dark">Retainer</span></div>
+      <h3>Retainer / advisory</h3>
+      <p class="blurb">Monthly or quarterly recurring access. Useful when you need a security voice in design reviews, threat-model discussions, or pre-release sign-off without the overhead of a full project.</p>
+    </div>
+    <div class="work-tile" style="cursor:default;">
+      <div class="head"><span class="watermark">03</span><span class="chip dark">Research</span></div>
+      <h3>Bug-bounty &amp; CVE</h3>
+      <p class="blurb">Coordinated vulnerability disclosure on your product, joint research on third-party software you depend on, or stewardship of an existing program with structural advice.</p>
+    </div>
+    <div class="work-tile" style="cursor:default;">
+      <div class="head"><span class="watermark">04</span><span class="chip dark">Training</span></div>
+      <h3>Training &amp; workshops</h3>
+      <p class="blurb">Internal sessions on offensive tradecraft, secure coding, threat modeling, or incident response. Tailored to your engineering team's stack.</p>
+    </div>
+  </div>
+
+  <!-- ========== TECHNICAL SURFACE + FIRST EMAIL ========== -->
+  <header class="sec-mark">
+    <p class="num">03 / Surface area &amp; the first email</p>
+    <div>
+      <h2>What I cover, and how to start the conversation.</h2>
+    </div>
+  </header>
+
+  <div class="two-col">
+    <div class="contact-card">
+      <h3>// What I work on</h3>
+      <ul class="chip-cloud">
+        <li><span class="chip">Web app pentest</span></li>
+        <li><span class="chip">Android pentest</span></li>
+        <li><span class="chip">Red Team simulation</span></li>
+        <li><span class="chip">APT emulation</span></li>
+        <li><span class="chip">EDR / AV evasion</span></li>
+        <li><span class="chip">DLP bypass</span></li>
+        <li><span class="chip">IoT / Embedded</span></li>
+        <li><span class="chip">Access-control hw.</span></li>
+        <li><span class="chip">Biometric data</span></li>
+        <li><span class="chip">CVE coordination</span></li>
+      </ul>
+    </div>
+
+    <div class="contact-card">
+      <h3>// What to send</h3>
+      <ol class="contact-list" style="counter-reset: step;">
+        <li><span class="k">01 Scope</span><span class="v">What you're testing, what's in / out.</span></li>
+        <li><span class="k">02 Target</span><span class="v">Web · mobile · network · AD · IoT.</span></li>
+        <li><span class="k">03 Auth</span><span class="v">Written confirmation of testing rights.</span></li>
+        <li><span class="k">04 Timing</span><span class="v">Engagement window &amp; reporting deadlines.</span></li>
+      </ol>
+      <p style="margin: 18px 0 0; font-family: var(--mono); font-size: 11px; line-height: 1.6; color: var(--ink-3); letter-spacing: 0.04em;">
+        Engagements without explicit written authorization aren't accepted.<br/>
+        Confidentiality / NDA arrangements available before the first email.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== CTA ========== -->
+  <div class="big-cta">
+    <div>
+      <p class="lab">// Best inbound</p>
+      <h2>Send the first email.</h2>
+    </div>
+    <a href="mailto:{{ site.author.email }}" class="btn-primary">Email →</a>
+  </div>
+
+</section>

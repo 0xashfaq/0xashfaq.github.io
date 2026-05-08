@@ -1,0 +1,21 @@
+{%- comment -%}
+  Renders either the author's profile photo (if it exists at site.author.avatar)
+  or the styled AH initials as a fallback. Used inside `.portrait .initials`
+  on the home page and `.poster .ini` on the inner pages.
+{%- endcomment -%}
+
+{%- assign avatar_path = site.author.avatar -%}
+{%- assign avatar_exists = false -%}
+{%- if avatar_path -%}
+  {%- for f in site.static_files -%}
+    {%- if f.path == avatar_path -%}{%- assign avatar_exists = true -%}{%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- if avatar_exists -%}
+  <img class="photo" src="{{ avatar_path | relative_url }}" alt="{{ site.author.name }}" loading="lazy" />
+{%- else -%}
+  {%- for c in site.author.initials -%}
+    {%- if c == site.author.initials_red -%}<span class="red">{{ c }}</span>{%- else -%}{{ c }}{%- endif -%}
+  {%- endfor -%}
+{%- endif -%}

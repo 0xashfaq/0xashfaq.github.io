@@ -1,0 +1,41 @@
+This repository contains both source code and personal content.
+Each is covered separately:
+
+  Source code — the Jekyll templates, stylesheets, JavaScript, build
+  configuration, Liquid includes, and layouts — is licensed under the
+  MIT License (terms reproduced below). You may fork, study, modify,
+  and reuse the source code for your own site with attribution.
+
+  Personal content — including the blog posts under `_blogs/`, the
+  project case studies under `_projects/`, the curriculum vitae in
+  `_pages/cv.md`, the profile photo, the name "Ashfaqul Haq", any
+  publication titles, CVE references, employer names, and the textual
+  copy throughout `_data/` — is copyright (c) 2026 Ashfaqul Haq, all
+  rights reserved. None of the personal content is covered by the MIT
+  License below. You may not copy, republish, or repurpose the
+  personal content without explicit prior written permission.
+
+================================================================
+MIT License (applies to source code only)
+================================================================
+
+Copyright (c) 2026 Ashfaqul Haq
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

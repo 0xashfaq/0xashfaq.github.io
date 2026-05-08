@@ -1,0 +1,51 @@
+{% assign current = page.nav | default: page.url %}
+<aside class="rail">
+  <a href="{{ '/' | relative_url }}" class="shield" aria-label="{{ site.author.name }} — home">{{ site.author.initials }}</a>
+  <div class="vline"></div>
+  <nav>
+    {% for item in site.data.nav %}
+      {% assign is_active = false %}
+      {% if page.nav %}
+        {% if page.nav == item.key %}{% assign is_active = true %}{% endif %}
+      {% else %}
+        {% if item.url == page.url %}{% assign is_active = true %}{% endif %}
+      {% endif %}
+
+      <a href="{{ item.url | relative_url }}"
+         class="{% if is_active %}active{% endif %}"
+         data-label="{{ item.label }}">
+        {% case item.icon %}
+          {% when 'home' %}
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12 L12 4 L21 12 V20 H3 Z"/><path d="M9 20 V14 H15 V20"/></svg>
+          {% when 'user' %}
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21 C4 16 8 14 12 14 C16 14 20 16 20 21"/></svg>
+          {% when 'notes' %}
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3 H15 L19 7 V21 H5 Z"/><path d="M15 3 V7 H19 M8 12 H16 M8 16 H14"/></svg>
+          {% when 'grid' %}
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          {% when 'doc' %}
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3 H17 L21 7 V21 H5 Z"/><path d="M17 3 V7 H21 M8 11 H16 M8 15 H16 M8 19 H12"/></svg>
+          {% when 'mail' %}
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6 H21 V18 H3 Z"/><path d="M3 6 L12 13 L21 6"/></svg>
+        {% endcase %}
+        <span>{{ item.short }}</span>
+      </a>
+    {% endfor %}
+  </nav>
+
+  <div class="rail-bottom">
+    <button class="theme-toggle" type="button" aria-label="Toggle theme" data-theme-toggle>
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/>
+      </svg>
+      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+      </svg>
+    </button>
+    <div class="meta">
+      <span class="pulse" aria-hidden="true"></span>
+      <span>LIVE · DHA</span>
+    </div>
+  </div>
+</aside>

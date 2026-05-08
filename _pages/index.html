@@ -1,0 +1,145 @@
+---
+layout: default
+nav: home
+title: Home
+permalink: /
+---
+
+{% assign blogs_sorted = site.blogs | sort: 'date' | reverse %}
+{% assign latest = blogs_sorted | first %}
+{% assign home   = site.data.home %}
+
+<!-- ============== HERO ============== -->
+<section class="hero">
+  <div class="ghost-mark">{{ home.ghost_mark }}</div>
+
+  <!-- LEFT: ABOUT CARD -->
+  <aside class="about-card">
+    <div class="top">
+      <div class="id"><span class="red">//</span> OPERATOR <span class="red">·</span> {{ home.about_card.operator_id }}</div>
+      <span class="status-pill"><span class="dot"></span>Live</span>
+    </div>
+
+    <div class="portrait">
+      <div class="bg-anim"  aria-hidden="true"></div>
+      <div class="gridlines" aria-hidden="true"></div>
+      <div class="initials">{% include avatar.html %}</div>
+      <div class="scan"     aria-hidden="true"></div>
+    </div>
+
+    <h2>{{ site.author.name }}</h2>
+    <div class="role">{{ site.author.handle }} · {{ site.author.location | upcase }}</div>
+    <p class="bio">{{ home.about_card.bio_html }}</p>
+
+    <div class="stats">
+      <div class="s"><div class="k">// EXP</div>   <div class="v">{{ site.author.exp }}</div></div>
+      <div class="s"><div class="k">// ROLE</div>  <div class="v acc">{{ site.author.role }}</div></div>
+      <div class="s"><div class="k">// FOCUS</div> <div class="v">{{ site.author.focus }}</div></div>
+      <div class="s"><div class="k">// LANGS</div> <div class="v">Bn · En · Hi</div></div>
+    </div>
+
+    <div class="cert-block">
+      <div class="k">// Certifications &mdash; {{ site.author.certs | size }}</div>
+      <ul class="cert-grid">
+        {% for c in site.author.certs %}
+          <li><span class="chip">{{ c }}</span></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="channels">
+      {% for s in site.data.social %}
+        <a href="{{ s.url }}" rel="noopener" aria-label="{{ s.label }}">{{ s.id }}</a>
+      {% endfor %}
+    </div>
+  </aside>
+
+  <!-- RIGHT: HEADLINE + WIDGETS -->
+  <div class="right-col">
+    {% include meta-strip.html crumb='Home' suffix='Index' %}
+
+    <div class="hero-body">
+      <div class="headline">
+        <div class="eyebrow">{{ home.hero.eyebrow }}</div>
+        <h1>{{ home.hero.headline_html }}</h1>
+        <p class="lede">{{ home.hero.lede_html }}</p>
+        <div class="actions">
+          <a href="{{ home.hero.cta_primary.url | relative_url }}" class="btn-primary">{{ home.hero.cta_primary.label }}</a>
+          <a href="{{ home.hero.cta_ghost.url   | relative_url }}" class="btn-ghost">{{ home.hero.cta_ghost.label }}</a>
+        </div>
+      </div>
+
+      <div class="widgets">
+        {% if latest %}
+          <a href="{{ latest.url | relative_url }}" class="widget latest">
+            <div class="lab">Latest Writeup</div>
+            <div class="date">
+              {{ latest.date | date: '%Y · %m · %d' }}
+              {% if latest.read_time %} · {{ latest.read_time | upcase }}{% endif %}
+            </div>
+            <div class="title">{{ latest.title }}</div>
+            <div class="read">Read post №{{ latest.number | default: '01' }} →</div>
+          </a>
+        {% endif %}
+
+        <div class="widget now">
+          <div class="lab">Currently</div>
+          {% for c in home.currently %}
+            <div class="item"><span class="k">{{ c.kind }}</span>{{ c.text }}</div>
+          {% endfor %}
+        </div>
+
+        <div class="widget terminal">
+          <div class="lab">Shell</div>
+          {% for ln in home.terminal %}
+            <div class="ln">
+              {%- if ln.prompt -%}<span class="prompt">$</span> {%- endif -%}
+              {%- if ln.out -%}<span class="out">{{ ln.text }}</span>
+              {%- else -%}{{ ln.text }}{%- endif -%}
+              {%- if ln.cursor %}<span class="cursor"></span>{%- endif -%}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SERVICES ============== -->
+<section class="section">
+  <div class="section-bar">
+    <div>
+      <div class="lab">{{ home.services_section.lab }}</div>
+      <h2>{{ home.services_section.heading_html }}</h2>
+    </div>
+    <div class="right">{{ home.services_section.blurb }}</div>
+    <a href="{{ '/projects/' | relative_url }}" class="more">All services →</a>
+  </div>
+
+  <div class="svc-grid">
+    {% for s in site.data.services %}
+      <div class="svc">
+        <div class="svc-num"><span class="red">[{{ s.num }}]</span> / {{ s.kind }}</div>
+        <h3>{{ s.title }}</h3>
+        <p>{{ s.blurb }}</p>
+        <div class="svc-arr">View →</div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- ============== WRITING ============== -->
+<section class="section">
+  <div class="section-bar">
+    <div>
+      <div class="lab">{{ home.writing_section.lab }}</div>
+      <h2>{{ home.writing_section.heading_html }}</h2>
+    </div>
+    <div class="right">{{ home.writing_section.blurb }}</div>
+    <a href="{{ '/blog/' | relative_url }}" class="more">All {{ blogs_sorted | size }} entries →</a>
+  </div>
+
+  <div class="post-grid">
+    {% for p in blogs_sorted limit:3 %}{% include post-card.html post=p %}{% endfor %}
+  </div>
+</section>

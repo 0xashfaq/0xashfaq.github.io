@@ -1,0 +1,47 @@
+# ============================================================
+#  Left rail navigation
+#
+#  - Order in this file = order on the rail.
+#  - `short` is the label shown UNDER the icon (max ~5 chars).
+#  - `label` is the tooltip on hover.
+#  - `key` MUST match the `nav:` value in each page's front matter
+#    (e.g. about.md has `nav: about`) so the active state highlights.
+#  - `icon` choices: home · user · notes · grid · doc · mail
+#    (defined as inline SVGs in _includes/rail.html)
+# ============================================================
+
+- key: home
+  label: "Home"
+  short: "Home"
+  url: "/"
+  icon: home
+
+- key: about
+  label: "About"
+  short: "About"
+  url: "/about/"
+  icon: user
+
+- key: blog
+  label: "Writing"
+  short: "Notes"
+  url: "/blog/"
+  icon: notes
+
+- key: projects
+  label: "Projects"
+  short: "Work"
+  url: "/projects/"
+  icon: grid
+
+- key: cv
+  label: "Curriculum Vitae"
+  short: "CV"
+  url: "/cv/"
+  icon: doc
+
+- key: contact
+  label: "Get in touch"
+  short: "Reach"
+  url: "/contact/"
+  icon: mail

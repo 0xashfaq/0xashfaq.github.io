@@ -1,0 +1,24 @@
+---
+layout: default
+---
+<article class="project">
+  {%- include meta-strip.html crumb='Projects' suffix=page.title -%}
+
+  <header class="post-header">
+    <div class="post-meta-line">
+      {% if page.year %}<span class="num">{{ page.year }}</span>{% endif %}
+      {% if page.role %}<span class="date">{{ page.role }}</span>{% endif %}
+      {% if page.stack %}
+        {% for s in page.stack %}<span class="tag">{{ s }}</span>{% endfor %}
+      {% endif %}
+    </div>
+
+    <div class="eyebrow">// CASE STUDY</div>
+    <h1 class="post-title">{{ page.title }}</h1>
+    {% if page.lede %}<p class="post-lede">{{ page.lede }}</p>{% endif %}
+  </header>
+
+  <div class="post-body prose">
+    {{ content }}
+  </div>
+</article>

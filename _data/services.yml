@@ -1,0 +1,24 @@
+# ============================================================
+#  Services — rendered on the home page services grid.
+#  Each item maps to a competency stated in the CV.
+# ============================================================
+
+- num: "01"
+  kind: "OFFENSIVE"
+  title: "Red Team &amp; APT Sim"
+  blurb: "Multi-stage Red Team engagements, realistic APT simulations, custom payload development, EDR &amp; AV evasion."
+
+- num: "02"
+  kind: "WEB"
+  title: "Web App Pentest"
+  blurb: "OWASP-aligned testing — SQLi, SSRF, SSTI, XSS, broken auth/authz. 200+ engagements completed."
+
+- num: "03"
+  kind: "MOBILE"
+  title: "Android Pentest"
+  blurb: "Static &amp; dynamic Android assessments with MobSF, APKTool, Frida, Objection, Jadx. eWPTX-grade rigor."
+
+- num: "04"
+  kind: "EMBEDDED"
+  title: "IoT &amp; Hardware"
+  blurb: "Firmware and hardware-level review of IoT devices, access-control hardware, biometric data, and telco assets."

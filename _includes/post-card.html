@@ -1,0 +1,16 @@
+{% assign p = include.post %}
+
+<a href="{{ p.url | relative_url }}" class="post-card">
+  <div class="meta">
+    <span class="num">№ {{ p.number | default: forloop.rev_index | prepend: '0' | slice: -2, 2 }}</span>
+    <span>{{ p.date | date: '%Y · %m · %d' }}</span>
+    {% include category-chip.html post=p style='card' %}
+  </div>
+  <h3>{{ p.title }}</h3>
+  {% if p.excerpt_text %}
+    <p class="excerpt">{{ p.excerpt_text }}</p>
+  {% else %}
+    <p class="excerpt">{{ p.excerpt | strip_html | truncate: 160 }}</p>
+  {% endif %}
+  <div class="post-arr">{{ p.read_time | default: '— min read' }} →</div>
+</a>

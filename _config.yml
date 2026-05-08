@@ -1,0 +1,92 @@
+# ============================================================
+#  _config.yml — site identity + Jekyll build config
+#
+#  Editable content lives in _data/*.yml — see EDITING.md for
+#  a full map of what to edit where. Briefly:
+#
+#    nav rail tabs ............ _data/nav.yml
+#    homepage hero text ....... _data/home.yml
+#    services grid ............ _data/services.yml
+#    social channels .......... _data/social.yml
+#    blog category labels ..... _data/categories.yml
+# ============================================================
+
+# ---------- Site identity ----------
+title: "Ashfaqul Haq"
+tagline: "Offensive Security Engineer"
+description: >-
+  Red Team specialist focused on web, mobile, and embedded systems.
+  APT simulations, EDR &amp; AV evasion, CVE research.
+
+author:
+  name: "Ashfaqul Haq"
+  handle: "/ashfaqul-haq"        # LinkedIn slug — the only handle in the CV
+  location: "Dhaka-1212 · BD"
+  email: "engrashfaqulhaq@gmail.com"
+  initials: "AH"
+  initials_red: "H"              # which letter of `initials` is rendered in accent
+  # Optional profile photo. Drop the file at this path and it auto-replaces
+  # the AH initials on home + about + contact + projects + blog. If the
+  # file is missing, initials render instead — no broken images.
+  avatar: "/assets/img/avatar.png"
+  exp: "5+ Years"                # Synack 2021 → present
+  role: "Off. Sec. Engineer"     # current title at Shorborno (MSSP of Grameenphone)
+  # Listed as an array — about-card renders these as a 3-per-row chip grid
+  # that wraps onto a 2nd / 3rd row automatically as you add more.
+  certs:
+    - "CRTO"
+    - "eWPTX"
+    - "CRTA"
+    # add CRT-ID, MCRTA, OSCP, etc. here — they'll wrap to a new row.
+  focus: "Red / Web / Mobile"
+
+# ---------- Build URLs ----------
+url: ""
+baseurl: ""
+
+# ---------- Downloadable CV ----------
+# Drop your CV PDF at the path below. Download buttons on /cv/ and /about/
+# auto-render once the file exists; they're hidden when it doesn't.
+# To use a different filename / location, change this and place the file there.
+cv_pdf: "/assets/pdf/cv.pdf"
+cv_pdf_filename: "ashfaqul-haq-cv.pdf"   # the name browsers will save it as
+
+# ---------- Jekyll ----------
+markdown:    kramdown
+highlighter: rouge
+
+collections:
+  blogs:
+    output: true
+    # _blogs/<category>/<slug>.md  →  /blog/<category>/<slug>/
+    permalink: /blog/:path/
+  projects:
+    output: true
+    permalink: /projects/:path/
+
+defaults:
+  - scope: { path: "", type: "blogs" }
+    values: { layout: "post" }
+  - scope: { path: "", type: "projects" }
+    values: { layout: "project" }
+  - scope: { path: "" }
+    values: { layout: "page" }
+
+# Treat _pages/ as a regular source directory (Jekyll otherwise ignores
+# leading-underscore folders that aren't recognized collections).
+include:
+  - _pages
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+exclude:
+  - refOnly
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - LICENSE
+  - vendor
+  - node_modules

@@ -1,0 +1,14 @@
+# ============================================================
+#  Social channels — rendered on the home about-card buttons
+#  and on the /contact/ page.
+#
+#  Only channels listed in the CV are included here.
+# ============================================================
+
+- id: "Li"
+  label: "LinkedIn"
+  url: "https://linkedin.com/in/ashfaqul-haq"
+
+- id: "@"
+  label: "Email"
+  url: "mailto:engrashfaqulhaq@gmail.com"

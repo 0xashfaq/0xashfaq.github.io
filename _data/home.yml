@@ -1,0 +1,69 @@
+# ============================================================
+#  Homepage copy — every editable text block on / (index.html).
+#
+#  All strings here are derived from the CV (refOnly/ashfaqCV.pdf).
+# ============================================================
+
+# Big diagonal mark behind the hero (single word, uppercased).
+ghost_mark: "RED TEAM"
+
+# About-card on the left side of the hero.
+about_card:
+  operator_id: "0×AH"
+  bio_html: |-
+    Red Team specialist focused on <em>web, mobile, and embedded</em> systems.
+    APT simulations, EDR &amp; AV evasion, and CVE research for enterprise clients.
+    Currently engineering at Shorborno Holdings (MSSP of Grameenphone).
+
+# Right-side hero block.
+hero:
+  eyebrow: "OFFENSIVE SECURITY ENGINEER · DHAKA"
+
+  # The big stacked headline. HTML allowed:
+  #   <span class="italic">  → italic serif (muted, with animated sheen)
+  #   <span class="red">     → red accent
+  #   <span class="stroke">  → outlined red (transparent fill, with animated glow)
+  # Each line wraps in <span class="line"> so the entrance reveal can stagger
+  # them in sequence on page load.
+  headline_html: |-
+    <span class="line">I FIND</span>
+    <span class="line">THE <span class="italic">flaws</span></span>
+    <span class="line"><span class="red">BEFORE THEY</span></span>
+    <span class="line">FIND <span class="stroke">YOU.</span></span>
+
+  lede_html: |-
+    Comprehensive penetration testing across <em>web, Android, IoT, and access-control hardware</em>.
+    Custom payloads, EDR/DLP bypass, and reproducible PoCs with strategic remediation —
+    the kind of report your security team can act on.
+
+  cta_primary:
+    label: "Start a Conversation →"
+    url:   "/contact/"
+  cta_ghost:
+    label: "Read the Writing"
+    url:   "/blog/"
+
+# "Currently" widget — the middle hero card.
+currently:
+  - { kind: "role",  text: "<em>Off. Sec. Engineer</em> · Shorborno · GP MSSP" }
+  - { kind: "study", text: "<em>M.Sc.</em> Info Systems Security · BUP" }
+  - { kind: "field", text: "<em>200+</em> Web · Android pentests" }
+
+# Terminal widget — the right-most hero card.
+terminal:
+  - { prompt: true, text: "whoami" }
+  - { out: true,    text: "ashfaq@dhaka:~" }
+  - { prompt: true, text: "uptime" }
+  - { out: true,    text: "5y · 2 CVEs · 100+ HOF" }
+  - { prompt: true, cursor: true }
+
+# Section bars — the small caption blocks between sections.
+services_section:
+  lab: "// 01 — Services"
+  heading_html: 'Built to <span class="italic">break</span> &amp; <span class="red">defend</span>'
+  blurb: "Four practice areas grounded in five years of red-team and pentesting work. Every engagement ships with a reproducible PoC and a strategic remediation plan."
+
+writing_section:
+  lab: "// 02 — Recent Writing"
+  heading_html: 'Field <span class="italic">notes</span> &amp; writeups'
+  blurb: "CVE disclosures, research notes, and engagement-grade writeups — published when they're cleared for release."

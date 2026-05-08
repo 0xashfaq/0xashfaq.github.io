@@ -1,0 +1,35 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#0A0707" />
+
+{%- comment -%} Apply persisted theme BEFORE paint, no FOUC {%- endcomment -%}
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('theme');
+      if (t !== 'light' && t !== 'dark') t = 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+</script>
+
+{% assign page_title = page.title | default: site.title %}
+{% if page.url == "/" %}
+  <title>{{ site.author.name }} — {{ site.tagline }}</title>
+{% else %}
+  <title>{{ page_title }} · {{ site.author.name }}</title>
+{% endif %}
+
+<meta name="description" content="{{ page.description | default: site.description | strip_newlines }}" />
+<link rel="canonical" href="{{ page.url | absolute_url }}" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+
+{% feed_meta %}
+{% seo title=false %}
