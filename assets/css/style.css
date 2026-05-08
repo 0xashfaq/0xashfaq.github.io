@@ -1475,16 +1475,24 @@ img     { max-width: 100%; display: block; }
 
 /* ---------- 22. Post header / body ---------- */
 /* Article wrappers used by /blog/<post>/ and /projects/<case-study>/.
-   Match the .page container shape so post / project pages center the same
-   way the about / cv / contact / blog / projects pages do. Without this
-   rule the article hugs the left edge under .main on wide screens. */
+   Long-form articles read better in a narrower centered column than
+   the full 1500px page width — this matches the Medium / Substack
+   reading width while staying consistent with the site's centering.
+
+   Inside the article: header + nav span the article's full width,
+   while .post-body (which carries .prose's 68ch max-width) gets
+   margin-inline: auto so the reading column sits centered, not
+   left-aligned with a void on the right. */
 .post,
 .project {
   padding: var(--gutter);
-  max-width: 1500px;
+  max-width: 1100px;
   margin-inline: auto;
   display: flex; flex-direction: column;
   gap: 16px;
+}
+.post-body {
+  margin-inline: auto;
 }
 
 .post-header {
