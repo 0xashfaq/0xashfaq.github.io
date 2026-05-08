@@ -164,6 +164,59 @@
   });
 })();
 
+(function postToc () {
+  // Auto-build the post / project page table of contents from the
+  // body's h2 / h3 elements, then highlight the active section while
+  // the user scrolls. Requires a container with [data-toc] in the
+  // markup (post.html / project.html provide it).
+  var nav = document.querySelector('[data-toc]');
+  if (!nav) return;
+
+  var headings = document.querySelectorAll('.post-body.prose h2, .post-body.prose h3');
+  if (!headings.length) {
+    // Hide the surrounding sidebar block too so it doesn't sit empty.
+    var aside = nav.closest('.post-toc');
+    if (aside) aside.style.display = 'none';
+    return;
+  }
+
+  function slugify (s) {
+    return s.toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+  }
+
+  var fragment = document.createDocumentFragment();
+  Array.prototype.forEach.call(headings, function (h) {
+    if (!h.id) h.id = slugify(h.textContent.trim());
+
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    a.textContent = h.textContent.replace(/\s*#$/, '').trim();
+    a.className = 'toc-' + h.tagName.toLowerCase();
+    fragment.appendChild(a);
+  });
+  nav.appendChild(fragment);
+
+  // Scrollspy — highlight the link for the heading currently in view.
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var id = entry.target.id;
+        var link = nav.querySelector('a[href="#' + id + '"]');
+        if (!link) return;
+        if (entry.isIntersecting) {
+          var prev = nav.querySelector('a.is-active');
+          if (prev) prev.classList.remove('is-active');
+          link.classList.add('is-active');
+        }
+      });
+    }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+
+    Array.prototype.forEach.call(headings, function (h) { observer.observe(h); });
+  }
+})();
+
 (function tagFilter () {
   var strip = document.querySelector('[data-tag-strip]');
   var rows  = document.querySelectorAll('[data-tags]');
